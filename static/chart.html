@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>画一个柱状图</title>
+    <script src="https://cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://assets.pyecharts.org/assets/echarts.min.js"></script>
+
+</head>
+<body>
+    <button onclick="Chart_View()">点击生成柱状图</button>
+    <button onclick="splider()">爬取数据</button>
+
+    <div id="Chart" style="width: 600px; height: 400px;"></div>
+
+</body>
+<script>
+    //定义函数
+    function Chart_View(){
+        // 发送ajax请求
+        $.ajax({
+            url:"/bar01/",
+            type:"get",
+            dataType:"json",
+            success:function(rs){
+                var chart = echarts.init(document.getElementById('Chart'),'white', {renderer: 'canvas'});
+                chart.setOption(rs.data);
+            }
+
+        })
+    }
+
+    function splider(){
+        // 发送ajax请求
+        $.ajax({
+            url:"/spliderRequest/",
+            type:"get",
+            success:function(rs){
+                alert(rs.data)
+            }
+        })
+    }
+
+</script>
+</html>
